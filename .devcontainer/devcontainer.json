@@ -1,0 +1,22 @@
+{
+  "name": "ROS2 Development",
+  "dockerComposeFile": "../docker-compose.yaml",
+  "service": "ros2-dev",
+  "workspaceFolder": "/ros2_ws",
+  "extensions": [
+    "ms-python.python",
+    "ms-vscode.cpptools",
+    "ms-vscode.cmake-tools",
+    "twxs.cmake",
+    "ms-iot.vscode-ros"
+  ],
+  "initializeCommand": "xhost +local:",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "python.defaultInterpreterPath": "/usr/bin/python3",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.formatting.provider": "autopep8",
+    "editor.formatOnSave": true
+  }
+}

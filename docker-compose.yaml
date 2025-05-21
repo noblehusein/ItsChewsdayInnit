@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  ros2-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/ros2_ws
+      - /tmp/.X11-unix:/tmp/.X11-unix  # For X11 forwarding
+      - ${XAUTHORITY:-~/.Xauthority}:${XAUTHORITY:-/home/ros/.Xauthority}:ro  # X11 auth
+    #runtime: nvidia
+    environment:
+      - DISPLAY=${DISPLAY}  # No quotes, no colon
+      - QT_X11_NO_MITSHM=1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      #- XAUTHORITY=${XAUTH}  # Uncomment if needed
+      #- LIBGL_ALWAYS_SOFTWARE=1  # Uncomment if needed for software rendering
+    network_mode: host
+    ipc: host
+    privileged: true
+    tty: true
+    stdin_open: true
+    command: bash
