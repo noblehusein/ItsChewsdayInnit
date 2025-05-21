@@ -1,6 +1,6 @@
-# README: ROS 2 Workspace Instructions
+# Motion Controller Test
 
-This repository contains a ROS 2 workspace designed for controlling a robot using a motion controller and a bringup package. You don't need to download or install any dependencies manually. Simply build the development container to get started. Alternatively, you can run the workspace through your terminal using Docker commands, which will be explained in a later section.
+This repository contains a ROS 2 workspace designed for controlling a robot using a motion controller and a bringup package. You don't need to download or install any dependencies manually. Simply build the development container to get started.
 
 ---
 
@@ -62,7 +62,7 @@ Use this method if you prefer working directly with Docker commands or don't use
 
 4. **Access the Container**:
    ```bash
-   docker exec -it tuesdaylabs-ros2-dev-1 bash
+   docker exec -it itschewsdayinnit-ros2-dev-1 bash
    ```
    (The container name may vary based on your directory name. You can check active containers with `docker ps`)
 
@@ -106,8 +106,7 @@ The `robot_bringup` package launches all necessary nodes, including the `motion_
      ```bash
      ros2 launch robot_bringup robot.launch.py headless:=true
      ```
-
----
+When launched, the target pose issuer waits 20 seconds before providing an initial pose, and then issues a new target pose every 20 seconds. The motion controller implements basic movement functionality but is not very robust. Currently, there is no feedback loop implemented to indicate whether the robot has successfully reached the target pose or not.
 
 ## Running Individual Nodes
 
@@ -129,7 +128,7 @@ The `robot_bringup` package launches all necessary nodes, including the `motion_
 
 ## Testing Your Code
 
-To add new test cases to your Python package:
+To add new test cases to the Python package:
 
 1. **Create Test Files**: 
    Add new test files in the existing test directory with names starting with `test_`.
@@ -152,11 +151,13 @@ To add new test cases to your Python package:
 
 ## Notes
 
-- **Gazebo Simulation**: If running with Gazebo, ensure you have the TurtleBot3 Gazebo packages installed.
-- **Environment Variables**: The Docker container automatically sets up the ROS environment. If running outside Docker, source the ROS 2 and workspace setup files:
+- **Gazebo GUI Issues**: If running through the terminal and Gazebo's GUI fails to launch, you may need to enable X11 forwarding first:
   ```bash
-  source /opt/ros/humble/setup.bash
-  source install/setup.bash
+  xhost +local:docker
+  ```
+  Alternatively, you can run in headless mode by modifying your launch command:
+  ```bash
+  ros2 launch robot_bringup robot.launch.py headless:=true
   ```
 
 ---
